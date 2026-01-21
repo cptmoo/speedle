@@ -1,0 +1,472 @@
+:root{
+  --bg: #efefef;
+  --panel: #ffffff;
+  --panel2: #f7f7f7;
+  --ink: #0b0b0b;
+  --muted: #6b6b6b;
+  --line: #dcdcdc;
+  --shadow: 0 2px 10px rgba(0,0,0,0.06);
+
+  --tile: #ffffff;
+  --tileLine: #d7d7d7;
+
+  /* Reserve space for fixed keyboard (adjust if you change keyboard height) */
+  --kbd-reserve: 200px;
+  --msg-reserve: 70px;      /* message bar height */
+
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+html, body {
+  height: 100%;
+  overflow: hidden; /* prevents the outer scrollbar */
+}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Page wrap (matches your Moggle-like centre layout) */
+.wrap{
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 14px 12px calc(18px + var(--kbd-reserve) + var(--msg-reserve));
+}
+
+/* Top header */
+.topbar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding: 6px 2px 10px;
+}
+
+.brand .title{
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.1;
+}
+.brand .subtitle{
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.subtitle .score{
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.rightbits{
+  text-align:right;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  box-shadow: var(--shadow);
+  font-variant-numeric: tabular-nums;
+}
+.pill strong{ color: var(--ink); }
+
+/* Mode buttons */
+.modes{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  margin: 6px 0 12px;
+}
+.modebtn{
+  flex:1;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 9px 10px;
+  font-weight: 900;
+  cursor:pointer;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+.modebtn .small{
+  display:block;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.modebtn.active{
+  outline: 3px solid rgba(0,0,0,0.12);
+}
+
+/* Board panel */
+.boardpanel{
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 12px 14px; 
+  box-shadow: var(--shadow);
+  position: relative;
+
+  /* Tile layout variables */
+  --cols: 5;      /* JS sets this via :style="{ '--cols': wordLen }" */
+  --gap: 6px;
+  --pad: 40px;    /* left+right padding (12px + 12px) */
+  --max-tile: 52px;
+  --min-tile: 32px;
+}
+
+/* Scrolling guess region inside the board */
+.guessscroll{
+  max-height: calc(100vh - 200px - var(--kbd-reserve) -  var(--msg-reserve));
+  overflow-y: auto;
+  overflow-x: hidden; /* never show horizontal scroll */
+  padding-right: 0px;
+}
+
+/* Grid: stack rows; each row defines its own columns */
+.grid{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  align-items:center;          /* centre rows */
+  justify-content:flex-start;
+}
+
+/* Each row: fixed number of columns equals word length */
+.row{
+  display:grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--gap);
+  justify-content:center;
+  width: fit-content;          /* shrink-wrap to tiles */
+}
+
+/* Tile size auto-shrinks so up to 9 letters fits */
+.tile{
+  width: clamp(
+    var(--min-tile),
+    calc(
+      (
+        min(520px, calc(100vw - 24px))
+        - var(--pad)
+        - ( (var(--cols) - 1) * var(--gap) )
+      ) / var(--cols)
+    ),
+    var(--max-tile)
+  );
+
+  height: clamp(
+    var(--min-tile),
+    calc(
+      (
+        min(520px, calc(100vw - 24px))
+        - var(--pad)
+        - ( (var(--cols) - 1) * var(--gap) )
+      ) / var(--cols)
+    ),
+    var(--max-tile)
+  );
+
+  border-radius: 12px;
+  border: 2px solid var(--tileLine);
+  background: var(--tile);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight: 900;
+  /* scales with tile size */
+  font-size: clamp(18px, calc(0.55 * clamp(var(--min-tile), 6vw, var(--max-tile))), 28px);
+
+  user-select:none;
+}
+
+.tile.good{
+  background: rgba(46,125,50,0.12);
+  border-color: rgba(46,125,50,0.35);
+}
+.tile.present{
+  background: rgba(181,155,0,0.14);
+  border-color: rgba(181,155,0,0.35);
+}
+.tile.bad{
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.18);
+}
+
+/* Toast message */
+.toast{
+  margin-top: 10px;
+  min-height: 22px;
+  font-weight: 900;
+  color: var(--muted);
+  transition: opacity 250ms ease;
+}
+.toast.fade{ opacity: 0; }
+
+/* Fixed keyboard docked to bottom */
+.kbdDock{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display:flex;
+  justify-content:center;
+  padding: 10px 12px 12px;
+  background: transparent;
+  pointer-events: none; /* only inner should receive clicks */
+}
+
+.kbd{
+  pointer-events: auto;
+  width: min(520px, 100%);
+  background: var(--panel2);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+.krow{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin-bottom: 8px;
+}
+.krow:last-child{ margin-bottom:0; }
+
+.key{
+  flex: 0 0 auto;
+  min-width: 32px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  font-weight: 900;
+  cursor: pointer;
+}
+.key.wide{ min-width: 76px; }
+
+.key.good{ background: rgba(46,125,50,0.12); border-color: rgba(46,125,50,0.35); }
+.key.present{ background: rgba(181,155,0,0.14); border-color: rgba(181,155,0,0.35); }
+.key.bad{ background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.18); }
+
+/* Help modal */
+.overlay{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.35);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding: 18px 12px calc(18px + var(--kbd-reserve) + var(--msg-reserve));
+}
+
+.modal{
+  width: min(520px, 100%);
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 14px 14px 12px;
+}
+
+.modalhead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.xbtn{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  font-weight: 900;
+  cursor:pointer;
+}
+
+.modal p{
+  margin: 10px 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.35;
+}
+.modal ul{
+  margin: 8px 0 0 18px;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.smallmuted{
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+/* Mobile tuning */
+@media (max-width: 420px){
+  :root{ --kbd-reserve: 212px; }
+  .modebtn{ font-size: 13px; }
+}
+
+.msgDock{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(12px + var(--kbd-reserve));
+  display:flex;
+  justify-content:center;
+  padding: 0 12px;
+  pointer-events: none;
+}
+
+.msgBar{
+  pointer-events: auto;
+  width: min(520px, 100%);
+  background: var(--panel2);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 10px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  min-height: var(--msg-reserve);
+}
+
+.msgText{
+  font-weight: 900;
+  color: var(--muted);
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msgActions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.msgBtn{
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 14px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.msgBtn.small{
+  width: 44px;
+  padding: 0;
+}
+
+/* Fixed dock stack at bottom */
+.dockStack{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display:flex;
+  justify-content:center;
+  padding: 10px 12px 12px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.dockInner{
+  width: min(520px, 100%);
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  pointer-events: auto; /* allow clicks inside */
+}
+
+/* Message bar (first in stack) */
+.msgBar{
+  width: 100%;
+  background: var(--panel2);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 10px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  min-height: 64px; /* or keep var(--msg-reserve) if you like */
+}
+
+.msgText{
+  font-weight: 900;
+  color: var(--muted);
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msgActions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.msgBtn{
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 14px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.msgBtn.small{ width: 44px; padding: 0; }
+
+/* Keyboard panel */
+.kbd{
+  width: 100%;
+  background: var(--panel2);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* IMPORTANT: reserve space for the whole dockStack */
+:root{
+  --dock-reserve: 320px; /* conservative; adjust if needed */
+}
+
+.wrap{
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 14px 12px calc(18px + var(--dock-reserve));
+}
