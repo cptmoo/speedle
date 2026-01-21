@@ -243,6 +243,7 @@ body{
 }
 
 .krow{
+  width: 100%;
   display:flex;
   gap:8px;
   justify-content:center;
@@ -251,16 +252,17 @@ body{
 .krow:last-child{ margin-bottom:0; }
 
 .key{
-  flex: 0 0 auto;
-  min-width: 32px;
-  padding: 10px 10px;
+  flex: 1 1 0;               /* allow shrink + equal distribution */
+  min-width: 0;              /* critical: permits shrinking below content width */
+  padding: 10px 0;           /* horizontal padding removed so it fits */
   border-radius: 12px;
   border: 2px solid var(--line);
   background: var(--panel);
   font-weight: 900;
   cursor: pointer;
+  font-size: 14px;           /* keeps letters from forcing width */
 }
-.key.wide{ min-width: 76px; }
+.key.wide{ flex: 1.6 1 0; }
 
 .key.good{ background: rgba(46,125,50,0.12); border-color: rgba(46,125,50,0.35); }
 .key.present{ background: rgba(181,155,0,0.14); border-color: rgba(181,155,0,0.35); }
@@ -329,7 +331,10 @@ body{
   :root{ --kbd-reserve: 212px; }
   .modebtn{ font-size: 13px; }
 }
-
+@media (max-width: 420px){
+  .krow{ gap: 6px; }
+  .kbd{ padding: 8px; }
+}
 .msgDock{
   position: fixed;
   left: 0;
@@ -469,4 +474,12 @@ body{
   max-width: 520px;
   margin: 0 auto;
   padding: 14px 12px calc(18px + var(--dock-reserve));
+}
+
+.msgText{
+  transition: opacity 300ms ease;
+}
+
+.msgBar:has(.msgText:empty){
+  opacity: 0;
 }

@@ -181,6 +181,7 @@ Vue.createApp({
       rafHandle: null,
       lastSaveAt: 0,           // perf.now timestamp for throttling
       saveIntervalMs: 700,     // throttle window
+      messageTimer: null,
 
       // keyboard
       kRows: [
@@ -289,9 +290,23 @@ Vue.createApp({
     },
 
     // ---------- messaging ----------
-    setMessage(text, kind="info"){
+    setMessage(text, kind = "info", { autoFade = false, delay = 2200 } = {}){
       this.message = text;
       this.messageKind = kind;
+
+      // clear any existing timer
+      if (this.messageTimer){
+        clearTimeout(this.messageTimer);
+        this.messageTimer = null;
+      }
+
+      if (autoFade){
+        this.messageTimer = setTimeout(() => {
+          this.message = "";
+          this.messageKind = "info";
+          this.messageTimer = null;
+        }, delay);
+      }
     },
     clearMessage(){
       this.message = "";
@@ -523,7 +538,7 @@ Vue.createApp({
       const g = normaliseWord(b.currentGuess);
 
       if (!this.isValidGuessForMode(g, b.modeKey)){
-        this.setMessage("Not in list", "warn");
+this.setMessage("Not in list", "warn", { autoFade: true });
         return;
       }
 
