@@ -536,6 +536,14 @@ Vue.createApp({
       if (!b || b.status !== "running") return;
 
       const g = normaliseWord(b.currentGuess);
+      if (g.length !== b.answer.length){
+        this.setMessage(
+          `Must be ${b.answer.length} letters`,
+          "warn" , { autoFade: true }
+        );
+        return;
+      }
+
 
       if (!this.isValidGuessForMode(g, b.modeKey)){
 this.setMessage("Not in list", "warn", { autoFade: true });
