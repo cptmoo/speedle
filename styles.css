@@ -10,10 +10,7 @@
   --tile: #ffffff;
   --tileLine: #d7d7d7;
 
-  /* Reserve space for fixed keyboard (adjust if you change keyboard height) */
-  --kbd-reserve: 200px;
-  --msg-reserve: 70px;      /* message bar height */
-
+  --dock-reserve: 250px; /* tighten this */
 }
 
 *{ box-sizing:border-box; }
@@ -29,11 +26,16 @@ body{
   color: var(--ink);
 }
 
-/* Page wrap (matches your Moggle-like centre layout) */
 .wrap{
   max-width: 520px;
   margin: 0 auto;
-  padding: 14px 12px calc(18px + var(--kbd-reserve) + var(--msg-reserve));
+
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 14px 12px calc(12px + var(--dock-reserve));
 }
 
 /* Top header */
@@ -129,12 +131,19 @@ body{
   --min-tile: 32px;
 }
 
+.boardpanel{
+  flex: 1 1 auto;
+  min-height: 0;   /* CRITICAL: allows inner scroll area to stay above dock */
+}
+
+
 /* Scrolling guess region inside the board */
 .guessscroll{
-  max-height: calc(100vh - 200px - var(--kbd-reserve) -  var(--msg-reserve));
+  height: 100%;
+  max-height: none;  /* stop using calc(...) */
   overflow-y: auto;
-  overflow-x: hidden; /* never show horizontal scroll */
-  padding-right: 0px;
+  overflow-x: hidden;
+  min-height: 0;     /* CRITICAL in flex layouts */
 }
 
 /* Grid: stack rows; each row defines its own columns */
@@ -220,17 +229,7 @@ body{
 .toast.fade{ opacity: 0; }
 
 /* Fixed keyboard docked to bottom */
-.kbdDock{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display:flex;
-  justify-content:center;
-  padding: 10px 12px 12px;
-  background: transparent;
-  pointer-events: none; /* only inner should receive clicks */
-}
+
 
 .kbd{
   pointer-events: auto;
@@ -276,7 +275,7 @@ body{
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  padding: 18px 12px calc(18px + var(--kbd-reserve) + var(--msg-reserve));
+  padding: 18px 12px calc(18px + var(--dock-reserve));
 }
 
 .modal{
@@ -327,64 +326,10 @@ body{
 }
 
 /* Mobile tuning */
-@media (max-width: 420px){
-  :root{ --kbd-reserve: 212px; }
-  .modebtn{ font-size: 13px; }
-}
+
 @media (max-width: 420px){
   .krow{ gap: 6px; }
   .kbd{ padding: 8px; }
-}
-.msgDock{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: calc(12px + var(--kbd-reserve));
-  display:flex;
-  justify-content:center;
-  padding: 0 12px;
-  pointer-events: none;
-}
-
-.msgBar{
-  pointer-events: auto;
-  width: min(520px, 100%);
-  background: var(--panel2);
-  border: 2px solid var(--line);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 10px 10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-  min-height: var(--msg-reserve);
-}
-
-.msgText{
-  font-weight: 900;
-  color: var(--muted);
-  overflow:hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.msgActions{
-  display:flex;
-  align-items:center;
-  gap: 8px;
-  flex: 0 0 auto;
-}
-
-.msgBtn{
-  height: 40px;
-  padding: 0 12px;
-  border-radius: 14px;
-  border: 2px solid var(--line);
-  background: var(--panel);
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: var(--shadow);
 }
 
 .msgBtn.small{
@@ -465,16 +410,7 @@ body{
   box-shadow: var(--shadow);
 }
 
-/* IMPORTANT: reserve space for the whole dockStack */
-:root{
-  --dock-reserve: 320px; /* conservative; adjust if needed */
-}
 
-.wrap{
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 14px 12px calc(18px + var(--dock-reserve));
-}
 
 .msgText{
   transition: opacity 300ms ease;
