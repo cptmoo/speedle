@@ -70,7 +70,6 @@ low
 mad
 man
 may
-mrs
 mum
 new
 not
@@ -182,7 +181,6 @@ aim
 ban
 bid
 era
-etc
 fee
 gap
 hip
@@ -328,7 +326,6 @@ pee
 pew
 pod
 pry
-que
 roe
 rum
 sap
@@ -336,11 +333,9 @@ tar
 tit
 vie
 wag
-abc
 aft
 amp
 bon
-com
 dew
 din
 eel
@@ -380,14 +375,11 @@ lob
 loo
 moi
 oar
-por
-qui
 rue
 rye
 sac
 sur
 tot
-une
 yon
 yum
 cog
@@ -409,7 +401,6 @@ tad
 yew
 zap
 ado
-aux
 bam
 bib
 bop
@@ -431,13 +422,11 @@ nub
 pip
 pox
 qua
-quo
 sop
 sup
 tau
 tic
 tut
-und
 yam
 able
 also
@@ -716,7 +705,7 @@ tire
 town
 tree
 trip
-TRUE
+true
 turn
 type
 ugly
@@ -843,8 +832,6 @@ hook
 inch
 iron
 item
-july
-june
 keen
 knee
 knit
@@ -1315,7 +1302,6 @@ hull
 hush
 hymn
 hype
-ibid
 idol
 isle
 itch
@@ -1479,7 +1465,6 @@ toil
 tort
 tram
 tuft
-unix
 unto
 veer
 ware
@@ -1501,7 +1486,6 @@ byte
 cant
 clam
 cola
-coli
 cull
 darn
 drab
@@ -1579,7 +1563,6 @@ yoga
 yolk
 yuan
 zest
-zion
 acne
 afar
 aria
@@ -1732,7 +1715,6 @@ pail
 pate
 pith
 plop
-prix
 puny
 rapt
 ruff
@@ -1774,7 +1756,6 @@ daub
 diva
 dunk
 dyad
-elle
 fief
 flax
 flay
@@ -1782,7 +1763,6 @@ glib
 gong
 gory
 heft
-indy
 jeez
 jibe
 jinx
@@ -1825,7 +1805,6 @@ taco
 teal
 vane
 viva
-vous
 welt
 whet
 whit
@@ -2077,7 +2056,6 @@ anger
 annoy
 apple
 apply
-april
 argue
 aside
 avoid
@@ -2329,7 +2307,7 @@ elite
 entry
 error
 essay
-FALSE
+false
 fibre
 firms
 flesh
@@ -2984,7 +2962,6 @@ melon
 mogul
 motel
 motto
-multi
 mural
 murky
 nasal
@@ -3152,7 +3129,6 @@ quail
 quell
 reset
 rhino
-satan
 scoff
 scoot
 shale
@@ -3363,7 +3339,6 @@ irate
 jaded
 jetty
 joist
-koran
 ladle
 lanky
 latex
@@ -3439,7 +3414,6 @@ wrest
 yucky
 acrid
 anvil
-aryan
 aspen
 avian
 azure
@@ -3458,7 +3432,6 @@ catty
 chink
 cluck
 clunk
-comme
 corny
 creme
 crepe
@@ -3503,11 +3476,8 @@ levee
 liane
 livid
 lumen
-mahdi
 moult
-nepal
 nifty
-norse
 opine
 overs
 pansy
@@ -3672,7 +3642,6 @@ tress
 trope
 upend
 verve
-ville
 vixen
 wench
 whorl
@@ -3682,7 +3651,6 @@ yahoo
 actin
 adder
 agape
-anova
 auger
 batty
 bayou
@@ -3699,7 +3667,6 @@ caret
 chaff
 chuff
 codex
-coeur
 colic
 conch
 cress
@@ -3716,8 +3683,6 @@ dumpy
 egged
 egret
 elope
-entre
-facto
 fatwa
 fetid
 flunk
@@ -3743,9 +3708,7 @@ midge
 mitre
 modus
 morel
-museo
 mylar
-naacp
 nadir
 pined
 pinot
@@ -3773,11 +3736,9 @@ tenon
 thrum
 tiara
 tryst
-tutsi
 udder
 umber
 venal
-versa
 willy
 accept
 across
@@ -3847,7 +3808,6 @@ follow
 forest
 forget
 freeze
-friday
 friend
 fright
 garden
@@ -3881,7 +3841,6 @@ minute
 missed
 mister
 moment
-monday
 mother
 nation
 nature
@@ -3930,7 +3889,6 @@ strong
 stupid
 sudden
 summer
-sunday
 system
 thirst
 thirty
@@ -5346,7 +5304,6 @@ meddle
 medley
 millet
 mishap
-mormon
 mottle
 mousse
 muffin
@@ -5390,7 +5347,6 @@ sesame
 settee
 shaggy
 sheath
-shiite
 sickle
 sitcom
 skewer
@@ -5495,7 +5451,6 @@ fondle
 frieze
 frolic
 frugal
-führer
 garish
 genera
 grisly
@@ -5840,7 +5795,6 @@ eczema
 effuse
 elixir
 emigre
-empath
 enfold
 ensign
 entree
@@ -5862,7 +5816,6 @@ gasket
 gauche
 gazebo
 geyser
-grammy
 groupy
 grovel
 hanker
@@ -6016,7 +5969,6 @@ imbibe
 impugn
 instep
 jabber
-jovian
 junket
 kinase
 lamina
@@ -6072,7 +6024,6 @@ sublet
 talcum
 tartar
 testes
-teuton
 thorax
 thrice
 tinder
@@ -6167,7 +6118,6 @@ suppose
 through
 tonight
 trouble
-tuesday
 weather
 whether
 willing
@@ -6245,7 +6195,6 @@ include
 inspect
 instant
 intense
-january
 journey
 justice
 library
@@ -6261,7 +6210,6 @@ mystery
 neither
 nervous
 observe
-october
 operate
 opinion
 partner
@@ -7650,10 +7598,8 @@ vagrant
 varsity
 venison
 vertigo
-walkman
 wayside
 whiting
-yiddish
 abridge
 abscess
 abysmal
@@ -7702,7 +7648,6 @@ delimit
 denizen
 diction
 distend
-doldrum
 dossier
 entreat
 epitaph
@@ -7746,7 +7691,6 @@ minutia
 modulus
 mustang
 nemesis
-nervosa
 nouveau
 numeral
 obviate
@@ -7772,7 +7716,6 @@ portico
 presage
 propane
 protege
-ramadan
 ratchet
 realtor
 regalia
@@ -7798,7 +7741,6 @@ steeple
 stirrup
 stratum
 summate
-swahili
 swelter
 tequila
 tetanus
@@ -7834,14 +7776,12 @@ possible
 probably
 question
 remember
-saturday
 shoulder
 straight
 surprise
 terrible
 thirteen
 thousand
-thursday
 together
 tomorrow
 accident
@@ -7857,7 +7797,6 @@ convince
 creature
 criminal
 customer
-december
 decision
 decorate
 describe
@@ -7873,7 +7812,6 @@ evidence
 exchange
 exercise
 familiar
-february
 gorgeous
 hesitate
 identify
@@ -8501,7 +8439,6 @@ habitual
 hallmark
 handcuff
 harmonic
-hispanic
 hitherto
 humility
 indebted
@@ -8936,7 +8873,6 @@ melanoma
 meridian
 modality
 mortuary
-nacional
 namesake
 nativity
 nautical
@@ -8952,7 +8888,6 @@ peroxide
 petulant
 placenta
 plankton
-polaroid
 populous
 preamble
 prenatal
@@ -9118,7 +9053,6 @@ verbatim
 advertise
 afternoon
 breakfast
-christmas
 delicious
 different
 difficult
@@ -9132,7 +9066,6 @@ presented
 programme
 situation
 telephone
-wednesday
 yesterday
 according
 advantage
@@ -9184,7 +9117,6 @@ pronounce
 recognize
 recommend
 represent
-september
 suspicion
 therefore
 tradition
@@ -9769,12 +9701,10 @@ enumerate
 epitomise
 espionage
 etiquette
-eucharist
 frivolous
 genealogy
 grandiose
 gruelling
-halloween
 hamstring
 haphazard
 histology
@@ -10165,7 +10095,6 @@ philology
 pinstripe
 platitude
 pneumatic
-polynesia
 precipice
 prescient
 reconvene
