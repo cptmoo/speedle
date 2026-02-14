@@ -187,6 +187,10 @@ Vue.createApp({
   },
 
   computed: {
+
+    appVersion() {
+      return window.SPEEDLE_VERSION || "dev";
+    },   
     currentBoard(){
       return this.boards[this.currentBoardId] || null;
     },
@@ -265,6 +269,8 @@ Vue.createApp({
   },
 
   methods: {
+
+ 
     // ---------- seed helpers ----------
     refreshSeedLabels(){
       this.dailyDate = todayKeyLocal();
@@ -798,6 +804,9 @@ this.setMessage("Not in list", "warn", { autoFade: true });
         <p class="smallmuted">
           Green = correct spot, yellow = in the word, grey = not in the word.
         </p>
+                          <div class="help-version">
+                    Version: {{ appVersion }}
+                  </div>   
       </div>
     </div>
   </div>
