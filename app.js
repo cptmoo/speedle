@@ -1,12 +1,6 @@
-/* Speedle — Vue 3 SPA (CDN) — Options API rewrite
-   A) Pause time when switching modes
-   B) Pause time when player leaves (hidden/unload)
-   C) Reduce localStorage spam (throttled saves + save-on-important-events)
-   D) Use Vue Options API: data(), methods, computed, mounted, beforeUnmount
-*/
-
 const MIN_LEN = 3;
 const MAX_LEN = 9;
+const WORDLIST_VERSION = window.SPEEDLE_VERSION || "dev";
 
 function mulberry32(seed) {
   let a = seed >>> 0;
@@ -696,8 +690,8 @@ this.setMessage("Not in list", "warn", { autoFade: true });
 
     // Load word files
     const [guessWords, answerWords] = await Promise.all([
-      loadWordFile("./words.txt"),
-      loadWordFile("./answers.txt")
+      loadWordFile(`./words.txt?v=${WORDLIST_VERSION}`),
+      loadWordFile(`./answers.txt?v=${WORDLIST_VERSION}`)
     ]);
 
     this.guessSet = new Set(guessWords);

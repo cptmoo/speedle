@@ -4,11 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Speedle</title>
-  <link rel="stylesheet" href="./styles.css?v=4" />
-<script src="./vendor/vue.global.prod.js?v=4"></script>
+  <script>
+    window.SPEEDLE_VERSION = "2026-02-14a";
+  </script>
 </head>
+
 <body>
   <div id="app"></div>
-  <script src="./app.js?v=4"></script>
+
+  <script>
+    (function () {
+      const v = window.SPEEDLE_VERSION;
+
+      // CSS
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = `./styles.css?v=${v}`;
+      document.head.appendChild(link);
+
+      // Load Vue, then app.js (guaranteed order)
+      const vue = document.createElement("script");
+      vue.src = `./vendor/vue.global.prod.js?v=${v}`;
+      vue.onload = function () {
+        const app = document.createElement("script");
+        app.src = `./app.js?v=${v}`;
+        document.body.appendChild(app);
+      };
+      vue.onerror = function () {
+        console.error("Failed to load Vue:", vue.src);
+      };
+
+      document.body.appendChild(vue);
+    })();
+  </script>
 </body>
 </html>
