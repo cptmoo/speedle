@@ -257,14 +257,19 @@ Vue.createApp({
       if (!b || b.status !== "solved") return "";
 
       const mode = b.modeLabel;
+      const MONTHS = [
+        "Jan","Feb","Mar","Apr","May","Jun",
+        "Jul","Aug","Sep","Oct","Nov","Dec"
+      ];
+      let seedText;
 
-      let seedText = b.seedKey;
       if (b.modeKey === "daily"){
-        const d = new Date(b.seedKey);
-        seedText = d.toLocaleDateString("en-AU", { day:"2-digit", month:"short" });
+          const d = new Date(b.seedKey);
+          seedText = `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}`;
+      } else {
+          seedText = timeOnlyFromBlockKey(b.seedKey);
       }
-
-      return `${mode} Speedle ${seedText} solved in ${formatMSS(b.finalMs ?? 0)} (${b.guesses.length} guesses)`;
+      return `Speedle · ${formatMSS(b.finalMs ?? 0)} (${b.guesses.length} guesses) · ${mode} ${seedText}`;
     }
   },
 
